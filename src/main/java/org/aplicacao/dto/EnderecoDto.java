@@ -18,18 +18,17 @@ public class EnderecoDto {
 
     @Override
     public String toString() {
-        return "EnderecoDto{" +
-                "bairro='" + bairro + '\'' +
-                ", cep='" + cep + '\'' +
-                ", logradouro='" + logradouro + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", localidade='" + localidade + '\'' +
-                ", uf='" + uf + '\'' +
-                ", ibge='" + ibge + '\'' +
-                ", gia='" + gia + '\'' +
-                ", ddd='" + ddd + '\'' +
-                ", siafi='" + siafi + '\'' +
-                '}';
+        return " Seu Endereco: " +
+                " Bairro: " + bairro + '\'' +
+                " Cep: " + cep + '\'' +
+                " Logradouro: " + logradouro + '\'' +
+                " Complemento: " + complemento + '\'' +
+                " Localidade: " + localidade + '\'' +
+                " UF: " + uf + '\'' +
+                " Ibge: " + ibge + '\'' +
+                " Gia: " + gia + '\'' +
+                " DDD:" + ddd + '\'' +
+                " Siafi: " + siafi + '\'';
     }
 
     public String getBairro() {

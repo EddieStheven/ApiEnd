@@ -8,6 +8,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Scanner;
+
 
 public class ApiServico {
 
@@ -15,11 +17,16 @@ public class ApiServico {
 
         public EnderecoDto getEndereco(String cep) throws IOException, InterruptedException {
 
+            Scanner scanner = new Scanner(System.in);
+
             try{
+
+                System.out.print("Digite seu CEP para descobrir seu endereço: ");
+                cep = scanner.nextLine();
 
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create("viacep.com.br/ws/" + cep + "/json/")).build();
+                        .uri(URI.create("http://viacep.com.br/ws/"+ cep +"/json/")).build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
                 ObjectMapper mapper = new ObjectMapper();
