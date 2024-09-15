@@ -1,5 +1,6 @@
 package org.aplicacao;
 
+import br.com.caelum.stella.validation.CPFValidator;
 import org.aplicacao.dto.EnderecoDto;
 import org.aplicacao.servico.ApiServico;
 
@@ -11,7 +12,18 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        Scanner scanner = new Scanner(System.in);
         ApiServico apiServico = new ApiServico();
+        CPFValidator cpfValidator = new CPFValidator();
+
+        try {
+            System.out.print("Digite seu CPF para descobrir seu endereço: ");
+            String cpf = scanner.nextLine();
+            cpfValidator.assertValid(cpf);
+            System.out.println("CPF válido");
+        } catch (Exception e) {
+            System.out.println("CPF inválido");
+        }
 
         try {
             EnderecoDto enderecoDto = apiServico.getEndereco(" ");
@@ -21,7 +33,6 @@ public class Main {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-
 
     }
 

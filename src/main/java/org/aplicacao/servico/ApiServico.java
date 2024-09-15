@@ -2,6 +2,7 @@ package org.aplicacao.servico;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aplicacao.dto.EnderecoDto;
+import org.aplicacao.exception.ApiException;
 
 import java.io.IOException;
 import java.net.URI;
@@ -29,12 +30,22 @@ public class ApiServico {
                         .uri(URI.create("http://viacep.com.br/ws/"+ cep +"/json/")).build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
+                if (response.statusCode() != 200 ){
+                    throw new ApiException("Erro ao efetuar a requisição - Status" +response.statusCode());
+                }
+
                 ObjectMapper mapper = new ObjectMapper();
-                enderecoDto = mapper.readValue(response.body(), EnderecoDto.class);
 
-            } catch (Exception e){
+                if(enderecoDto != null){
+                    enderecoDto = mapper.readValue(response.body(), EnderecoDto.class);
+                    System.out.println(enderecoDto);
+                } else{
+                    throw new ApiException("Erro ao efetuar a requisição - Objeto Nulo");
+                }
 
-                System.out.println(e.getMessage());
+            } catch (ApiException e){
+
+                System.err.println("Erro geral ao efetuar a requisição na API" + e.getMessage());
                 e.printStackTrace();
 
             }
